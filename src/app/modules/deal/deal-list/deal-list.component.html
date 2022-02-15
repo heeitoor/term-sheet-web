@@ -1,0 +1,50 @@
+<div class="list-component">
+  <button mat-raised-button color="primary" (click)="newDeal()">
+    New Deal
+  </button>
+  <div
+    class="table-container"
+    *ngIf="tableData.source$ | async as source; else loading"
+  >
+    <mat-table [dataSource]="source">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="purchasePrice">
+        <mat-header-cell *matHeaderCellDef> Purchase Price </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.purchasePrice | currency }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.address }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="netOperatingIncome">
+        <mat-header-cell *matHeaderCellDef> NOI </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.netOperatingIncome | currency }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="capRate">
+        <mat-header-cell *matHeaderCellDef> Cap Rate </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.capRate | number: "1.0-2" }}%
+        </mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="tableData.displayedColumns"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: tableData.displayedColumns"
+      ></mat-row>
+    </mat-table>
+    <div class="table-container__no-results" *ngIf="!source.length">
+      No results
+    </div>
+  </div>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</div>

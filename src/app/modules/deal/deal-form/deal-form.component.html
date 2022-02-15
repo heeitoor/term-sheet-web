@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>Deal Form</h1>
+<div mat-dialog-content>
+  <form [formGroup]="dealForm">
+    <mat-form-field appearance="standard">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text" autocomplete="off" />
+      <mat-error *ngIf="nameFormControl.hasError('required')">
+        Name field is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Address</mat-label>
+      <input
+        matInput
+        formControlName="address"
+        type="text"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="addressFormControl.hasError('required')">
+        Address field is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Purchase Price</mat-label>
+      <input
+        matInput
+        formControlName="purchasePrice"
+        mvndrMatCurrencyFormat
+        [allowNegative]="false"
+        (change)="updateCapRate()"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="purchasePriceFormControl.hasError('required')">
+        Purchase Price field is required
+      </mat-error>
+      <mat-error *ngIf="purchasePriceFormControl.hasError('greaterThanZero')">
+        The value must be greater than zero
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Net Operating Income (NOI)</mat-label>
+      <input
+        matInput
+        formControlName="netOperatingIncome"
+        mvndrMatCurrencyFormat
+        [allowNegative]="false"
+        (change)="updateCapRate()"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="netOperatingIncomeFormControl.hasError('required')">
+        Net Operating Income (NOI) field is required
+      </mat-error>
+      <mat-error
+        *ngIf="netOperatingIncomeFormControl.hasError('greaterThanZero')"
+      >
+        The value must be greater than zero
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Cap Rate</mat-label>
+      <input matInput readonly formControlName="capRate" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="add()">Add</button>
+  <button mat-raised-button color="accent" (click)="close()">Cancel</button>
+</div>

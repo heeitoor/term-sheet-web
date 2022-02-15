@@ -1,0 +1,14 @@
+.list-component {
+  margin: 15px;
+  .table-container {
+    &__no-results {
+      text-align: center;
+      padding: 25px;
+      font-size: 18px;
+    }
+  }
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
